@@ -100,8 +100,8 @@ export default class Main extends Component {
                         <InputPage
                             clusterName={this.state.clusterName}
                             region={this.state.region}
-                            maxNodes={this.state.minNodes}
-                            minNodes={this.state.maxNodes}
+                            maxNodes={this.state.maxNodes}
+                            minNodes={this.state.minNodes}
                             projectName={this.state.projectName}
                             updateValue={this.handleInput}
                             callDeploy={this.callDeploy}

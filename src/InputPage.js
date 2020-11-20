@@ -38,6 +38,31 @@ export default class InputPage extends Component {
                     value={this.props.clusterName}
                     onChange={this.handleChange}
                 />
+                <input
+                    name={"region"}
+                    value={this.props.region}
+                    onChange={this.handleChange}
+                />
+                <input
+                    name={"maxNodes"}
+                    value={this.props.maxNodes}
+                    onChange={this.handleChange}
+                />
+                <input
+                    name={"minNodes"}
+                    value={this.props.minNodes}
+                    onChange={this.handleChange}
+                />
+                <input
+                    name={"projectName"}
+                    value={this.props.projectName}
+                    onChange={this.handleChange}
+                />
+                <button
+                    onClick={this.props.callDeploy}
+                >
+                    Submit
+                </button>
             </div>
         )
     }
