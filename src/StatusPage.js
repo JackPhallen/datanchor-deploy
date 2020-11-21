@@ -59,20 +59,16 @@ export default class StatusPage extends Component {
                         <td>{this.getIcon(this.props.status[0])} </td>
                     </tr>
                     <tr>
-                        <td>MongoDB health check</td>
+                        <td>Backend Services check</td>
                         <td>{this.getIcon(this.props.status[1])}</td>
                     </tr>
                     <tr>
-                        <td>Backend Services check</td>
+                        <td>Certificates check</td>
                         <td>{this.getIcon(this.props.status[2])}</td>
                     </tr>
                     <tr>
-                        <td>Certificates check</td>
-                        <td>{this.getIcon(this.props.status[3])}</td>
-                    </tr>
-                    <tr>
                         <td>Other Services status</td>
-                        <td>{this.getIcon(this.props.status[4])}</td>
+                        <td>{this.getIcon(this.props.status[3])}</td>
                     </tr>
                 </table>
             </div>
