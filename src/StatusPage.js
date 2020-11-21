@@ -53,6 +53,10 @@ export default class StatusPage extends Component {
                         <td width>Status of master deploy script</td>
                         <td>{this.getIcon(this.props.deployStatus)}</td>
                     </tr>
+                    <tr>
+                        <td>IP</td>
+                        <td>{this.props.ip} </td>
+                    </tr>
                     <button onClick={this.props.callHealthCheck1}>Call Health Check</button>
                     <tr>
                         <td>Kubernetes health check</td>
