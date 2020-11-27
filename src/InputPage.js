@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import Form from 'react-bootstrap/Form'
 import Col from "react-bootstrap/cjs/Col";
 import Row from "react-bootstrap/Row";
+
+import Navbar from 'react-bootstrap/Navbar'
 export default class InputPage extends Component {
 
     constructor(props) {
@@ -36,6 +38,17 @@ export default class InputPage extends Component {
     render() {
         return(
             <div>
+                    <Navbar bg="dark" variant="dark">
+                        <Navbar.Brand href="#home">
+                            <img
+                                alt=""
+                                src="./Anchor - Logo - Primary.png"
+                                width="150"
+                                height="40"
+                                className="d-inline-block align-top"
+                            />
+                        </Navbar.Brand>
+                    </Navbar>
                 <Form>
 
                     <Form.Group as ={Row} controlId="clusterName">
