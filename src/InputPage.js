@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Form from 'react-bootstrap/Form'
+import Col from "react-bootstrap/cjs/Col";
+import Row from "react-bootstrap/Row";
 export default class InputPage extends Component {
 
     constructor(props) {
@@ -33,36 +36,42 @@ export default class InputPage extends Component {
     render() {
         return(
             <div>
-                <input
-                    name={"clusterName"}
-                    value={this.props.clusterName}
-                    onChange={this.handleChange}
-                />
-                <input
-                    name={"region"}
-                    value={this.props.region}
-                    onChange={this.handleChange}
-                />
-                <input
-                    name={"maxNodes"}
-                    value={this.props.maxNodes}
-                    onChange={this.handleChange}
-                />
-                <input
-                    name={"minNodes"}
-                    value={this.props.minNodes}
-                    onChange={this.handleChange}
-                />
-                <input
-                    name={"projectName"}
-                    value={this.props.projectName}
-                    onChange={this.handleChange}
-                />
-                <button
-                    onClick={this.props.callDeploy}
-                >
-                    Submit
-                </button>
+                <Form>
+
+                    <Form.Group as ={Row} controlId="clusterName">
+                        <Form.Label column sm="2">Cluster Name</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control name="clusterName" type="text" placeholder="Enter Cluster name" onChange={this.handleChange}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as ={Row} controlId="region">
+                        <Form.Label column sm="2">Region</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control name="region" type="text" placeholder="Enter the region"   onChange={this.handleChange} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as ={Row} controlId="maxNodes">
+                        <Form.Label column sm="2">Max Nodes</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control name="maxNodes" type="text" placeholder="0"  onChange={this.handleChange}/>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as ={Row}controlId="minNodes">
+                        <Form.Label column sm="2">Min Nodes</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control name="minNodes" type="text" placeholder="0"  onChange={this.handleChange}/>
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as ={Row} controlId="projectName">
+                        <Form.Label column sm="2">Project Name</Form.Label>
+                        <Col sm={10}>
+                            <Form.Control name="projectName" type="text" placeholder="Enter the project name"  onChange={this.handleChange}/>
+                        </Col>
+                    </Form.Group>
+                    <button type="button" className="btn btn-dark" onClick={this.props.callDeploy}>Submit</button>
+                </Form>
+
             </div>
         )
     }
