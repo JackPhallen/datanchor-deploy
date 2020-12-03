@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {PENDING, ERROR, SUCCESS} from "./StatusTypes";
 import InputPage from "./InputPage";
 import StatusPage from "./StatusPage";
+import {deploy, getIP, healthCheck} from "./ServerRequests";
 
 export default class Main extends Component {
 
@@ -11,8 +12,12 @@ export default class Main extends Component {
         // Make 'this' available in all functions acting as callbacks
         this.handleInput = this.handleInput.bind(this);
         this.callDeploy = this.callDeploy.bind(this);
-        this.callHealthCheck1 = this.callHealthCheck1.bind(this);
-        this.callHealthCheck2 = this.callHealthCheck2.bind(this);
+        this.callHealthCheck = this.callHealthCheck.bind(this);
+        this.callGetIP = this.callGetIP.bind(this);
+        this.deployCallback = this.deployCallback.bind(this);
+        this.healthCheckCallback = this.healthCheckCallback.bind(this);
+        this.getIPCallback = this.getIPCallback.bind(this);
+
 
         this.state = {
             // true when on status page, false when on input page
@@ -46,41 +51,68 @@ export default class Main extends Component {
 
 
     /**
-     * Call Akhil's function to hit '/deploy' on backend
+     * function to hit '/deploy' on backend
      */
     callDeploy() {
         // switch to status page
         this.setState({statusPage: true})
 
-        // Akhil, your function that this calls does not need to be in a React component/class
-        // Just make sure it is async
-        // be sure to update the state when the results are returned to this function... or tell me to
+        deploy(this.state.clusterName, this.state.region, this.state.maxNodes, this.state.minNodes,
+            this.state.projectName, this.deployCallback)
     }
 
     /**
-     * Call Akhil's function to hit '/check1' on backend
+     * function to hit '/check' on backend
      */
-    callHealthCheck1() {
-        // Akhil, your function that this calls does not need to be in a React component/class
-        // Just make sure it is async
+    callHealthCheck() {
+        healthCheck(this.state.clusterName, this.state.region, this.state.maxNodes, this.state.minNodes,
+            this.state.projectName, this.healthCheckCallback)
+    }
 
+
+    /**
+     * function to hit '/getip' on backend
+     */
+    callGetIP() {
+        getIP(this.state.clusterName, this.getIPCallback)
     }
 
     /**
-     * Call Akhil's function to hit '/check2' on backend
+     * Process response data from '/deploy'
+     * @param data
      */
-    callHealthCheck2() {
-        // Akhil, your function that this calls does not need to be in a React component/class
-        // Just make sure it is async
+    deployCallback(data) {
+        if (data['success']) {
+            this.setState({deployStatus: SUCCESS})
+            this.callGetIP()
+        } else {
+            alert("Error connecting to deployment server!")
+        }
     }
 
-
-    /*
-        This will render StatusPage when this.state.statusPage = true
-        or InputPage when this.state.inputPage = false
-
-        If you want to work on StatusPage, just hardcode the state to be statusPage = true
+    /**
+     * Process response data from '/check'
+     * @param data
      */
+    healthCheckCallback(data) {
+        const newState = data['result'].map( result => {
+            return result ? SUCCESS : ERROR
+        });
+        this.setState({status: newState})
+    }
+
+    /**
+     * Process response data from '/getip'
+     * @param data
+     */
+    getIPCallback(data) {
+        try {
+            this.setState({ip: data['ip']});
+        } catch (e) {
+            alert("Error connecting to deployment server!")
+        }
+    }
+
 
     render() {
         return(
@@ -93,8 +125,7 @@ export default class Main extends Component {
                             deployStatus={this.state.deployStatus}
                             status={this.state.status}
                             status2={this.state.status2}
-                            callHealthCheck1={this.callHealthCheck1}
-                            callHealthCheck2={this.callHealthCheck2}
+                            callHealthCheck={this.callHealthCheck}
                         />
                     :
                         <InputPage
